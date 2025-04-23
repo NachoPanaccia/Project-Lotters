@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Pantalla de Nickname.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Menu Principal.unity
+    guid: 61244347b45e6aa4fa50b6b1952adbe6
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 2063901157aaeb143bf46b0dbca7d5d3
   m_configObjects: {}
