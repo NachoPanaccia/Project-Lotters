@@ -45,6 +45,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             chat.AgregarMensaje(mensaje);
             chat.AgregarMensaje(mensajeTotalDeJugadores);
         }
+
+        LobbySlotManager slotManager = FindObjectOfType<LobbySlotManager>();
+        if (slotManager != null)
+            slotManager.AsignarJugador(PhotonNetwork.LocalPlayer);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -60,6 +64,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             chat.AgregarMensaje(mensajeJoinSala);
             chat.AgregarMensaje(mensajeTotalDeJugadores);
         }
+
+        LobbySlotManager slotManager = FindObjectOfType<LobbySlotManager>();
+        if (slotManager != null)
+            slotManager.AsignarJugador(newPlayer);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -75,5 +83,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             chat.AgregarMensaje(mensaje);
             chat.AgregarMensaje(mensajeTotalDeJugadores);
         }
+
+        LobbySlotManager slotManager = FindObjectOfType<LobbySlotManager>();
+        if (slotManager != null)
+            slotManager.RemoverJugador(otherPlayer);
     }
 }
