@@ -45,6 +45,10 @@ MonoBehaviour:
   - RPC_EnviarNicknameAlMaster
   - RPC_SolicitarCambioDeSlot
   - RPC_ActualizarEstadoBotones
+  - RPC_EnviarEstadoAlNuevoMaster
+  - RPC_PedirEstado
+  - RPC_SetBotonIniciarPartidaEstado
+  - RPC_IniciarPartidaDesdeCliente
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -1,12 +1,17 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp:
+    - PlayerController
     Assembly-CSharp.dll:
+    - GameInitializer
+    - LobbyButtonController
     - LobbyChat
     - LobbyManager
     - LobbySlotManager
     - MenuNameManager
     - MenuPrincipalManager
     - NicknameMenuTransition
+    - PlayerController
     - SlotChangeButton
     PhotonUnityNetworking:
     - Photon.Pun.PhotonAnimatorView
@@ -25,8 +30,11 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
+    PhotonUnityNetworking.Editor.dll:
+    - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonTransformView
+    - Photon.Pun.PhotonTransformViewClassic
     - Photon.Pun.PhotonView
     - Photon.Pun.ServerSettings
     Unity.2D.Animation.Editor.dll:
@@ -247,8 +255,17 @@ ScriptsOnlyBuild:
   - assembly: Unity.RenderPipelines.Core.Runtime
     fullTypeName: UnityEngine.Rendering.UI.DebugUIHandlerPanel
     methodName: ResetDebugManager
+  - assembly: Assembly-CSharp
+    fullTypeName: LobbyButtonController
+    methodName: ComenzarPartida
+  - assembly: Assembly-CSharp
+    fullTypeName: LobbyButtonController
+    methodName: VolverAlMenuPrincipal
+  - assembly: Assembly-CSharp
+    fullTypeName: LobbyButtonController
+    methodName: SalirDelJuego
   sceneClasses:
-    Assets/Scenes/Lobby.unity:
+    Assets/Scenes/Inicial/Lobby.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -309,6 +326,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13050}
     - Class: 114
       Script: {instanceID: 13068}
+    - Class: 114
+      Script: {instanceID: 30190}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -325,7 +344,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    Assets/Scenes/Menu Principal.unity:
+    Assets/Scenes/Inicial/Menu Principal.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -378,7 +397,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    Assets/Scenes/Pantalla de Nickname.unity:
+    Assets/Scenes/Inicial/Pantalla de Nickname.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -398,6 +417,8 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 49
+      Script: {instanceID: 0}
+    - Class: 50
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
@@ -569,6 +590,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13220}
     - Class: 114
       Script: {instanceID: 13444}
+    - Class: 114
+      Script: {instanceID: 57096}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -600,6 +623,57 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     - Class: 225
+      Script: {instanceID: 0}
+    Assets/Scenes/Nivel Jugable.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1788}
+    - Class: 114
+      Script: {instanceID: 2110}
+    - Class: 114
+      Script: {instanceID: 8590}
+    - Class: 114
+      Script: {instanceID: 8776}
+    - Class: 114
+      Script: {instanceID: 8968}
+    - Class: 114
+      Script: {instanceID: 9134}
+    - Class: 114
+      Script: {instanceID: 11802}
+    - Class: 114
+      Script: {instanceID: 52402}
+    - Class: 114
+      Script: {instanceID: 57096}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -1018,7 +1092,7 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionExit2DMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 57220bcfa99e60f986d331caffd4a04c
+      Hash: 47b175dd71917b6e90f128fb5a4cd1c5
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: LobbySlotManager
@@ -3230,9 +3304,28 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 8f68b5438408af76b8bbc38780c0c9eb
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: LobbyButtonController
+  - hash:
+      serializedVersion: 2
+      Hash: 8372efd9fe9e6426b0ca89303db25913
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: GameInitializer
+  - hash:
+      serializedVersion: 2
+      Hash: 2e676c10f5e76b285544acc70342f4b6
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: PlayerController
   platform: 19
   scenePathNames:
-  - Assets/Scenes/Pantalla de Nickname.unity
-  - Assets/Scenes/Menu Principal.unity
-  - Assets/Scenes/Lobby.unity
+  - Assets/Scenes/Inicial/Pantalla de Nickname.unity
+  - Assets/Scenes/Inicial/Menu Principal.unity
+  - Assets/Scenes/Inicial/Lobby.unity
+  - Assets/Scenes/Nivel Jugable.unity
   playerPath: B:/Builds/Project-Looters/Project-Lotters.exe

@@ -13,16 +13,20 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
     [Header("Botones de cambio de slot")]
     [SerializeField] private SlotChangeButton[] slotButtons;
 
+    [Header("Botón de comenzar partida")]
+    [SerializeField] private Button startGameButton;
+
     private Dictionary<int, (int slot, string nickname)> estadoSlots = new Dictionary<int, (int, string)>();
 
     private void Start()
     {
         LimpiarSlotsVisuales();
+        ValidarBotonComenzar();
     }
 
     public override void OnJoinedRoom()
     {
-        photonView.RPC("RPC_EnviarNicknameAlMaster", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.NickName);
+        photonView.RPC("RPC_EnviarNicknameAlMaster", RpcTarget.MasterClient, PhotonNetwork.NickName);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -85,20 +89,17 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
 
     private void ActualizarVisualGlobal()
     {
-        // Limpiar todos los textos visuales
         policeSlot.text = "POLICÍA";
         foreach (Text t in thiefSlots) t.text = "LADRÓN";
 
-        // Aplicar nombres actualizados
         foreach (var kvp in estadoSlots)
         {
             photonView.RPC("RPC_ActualizarSlotVisual", RpcTarget.All, kvp.Value.slot, kvp.Value.nickname);
         }
 
-        // Calcular ocupación y actualizar botones
         if (PhotonNetwork.IsMasterClient)
         {
-            bool[] ocupacion = new bool[4]; // 0 = policía, 1-3 = ladrones
+            bool[] ocupacion = new bool[4];
             foreach (var entry in estadoSlots.Values)
             {
                 int index = entry.slot == -1 ? 0 : entry.slot + 1;
@@ -106,29 +107,65 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
             }
 
             photonView.RPC("RPC_ActualizarEstadoBotones", RpcTarget.All, ocupacion);
+            ValidarBotonComenzar(); // Actualiza el botón de jugar
+        }
+    }
+
+    private void ValidarBotonComenzar()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        int totalJugadores = estadoSlots.Count;
+        bool hayPolicia = false;
+        bool hayLadron = false;
+
+        foreach (var entry in estadoSlots.Values)
+        {
+            if (entry.slot == -1) hayPolicia = true;
+            if (entry.slot >= 0) hayLadron = true;
+        }
+
+        bool habilitado = (totalJugadores >= 2) && hayPolicia && hayLadron;
+
+        // Se envia este estado a todos los jugadores (incluyendo el master) para que todos tengan habilitado el boton de jugar.
+        photonView.RPC("RPC_SetBotonIniciarPartidaEstado", RpcTarget.All, habilitado);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (PhotonNetwork.LocalPlayer == newMasterClient)
+        {
+            Debug.Log("Soy el nuevo MasterClient. Solicitando estados a los jugadores...");
+
+            photonView.RPC("RPC_PedirEstado", RpcTarget.Others);
+
+            int miSlot = PlayerPrefs.GetInt("MiSlot", -99);
+            string miNick = PhotonNetwork.NickName;
+
+            photonView.RPC("RPC_EnviarEstadoAlNuevoMaster", PhotonNetwork.LocalPlayer, miNick, miSlot);
         }
     }
 
     [PunRPC]
-    private void RPC_ActualizarSlotVisual(int slot, string nickname)
+    private void RPC_ActualizarSlotVisual(int slot, string nickname, PhotonMessageInfo info)
     {
         if (slot == -1) policeSlot.text = nickname;
         else if (slot >= 0 && slot < thiefSlots.Length) thiefSlots[slot].text = nickname;
+
+        if (info.Sender.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            PlayerPrefs.SetInt("MiSlot", slot);
+        }
     }
 
     [PunRPC]
     private void RPC_ActualizarEstadoBotones(bool[] ocupacion)
     {
-        Debug.Log("=== ACTUALIZACIÓN VISUAL DE BOTONES ===");
-
         foreach (var boton in slotButtons)
         {
             int slot = boton.GetTargetSlot();
             int index = slot == -1 ? 0 : slot + 1;
-            bool visible = !ocupacion[index];
-
-            Debug.Log($"Botón para slot {slot} --> visible: {visible}");
-            boton.SetInteractable(visible);
+            boton.SetInteractable(!ocupacion[index]);
         }
     }
 
@@ -149,9 +186,9 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
         string nickname = estadoSlots[actorNumberSolicitante].nickname;
         int slotAnterior = estadoSlots[actorNumberSolicitante].slot;
 
-        estadoSlots[actorNumberSolicitante] = (slotDeseado, nickname);
+        photonView.RPC("RPC_LimpiarSlot", RpcTarget.All, slotAnterior);
 
-        // Ahora simplemente actualizamos la visual completa
+        estadoSlots[actorNumberSolicitante] = (slotDeseado, nickname);
         ActualizarVisualGlobal();
     }
 
@@ -162,5 +199,45 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
             policeSlot.text = "POLICÍA";
         else if (slot >= 0 && slot < thiefSlots.Length)
             thiefSlots[slot].text = "LADRÓN";
+    }
+
+    [PunRPC]
+    private void RPC_PedirEstado()
+    {
+        int slotActual = PlayerPrefs.GetInt("MiSlot", -99);
+        string nickname = PhotonNetwork.NickName;
+
+        photonView.RPC("RPC_EnviarEstadoAlNuevoMaster", RpcTarget.MasterClient, nickname, slotActual);
+    }
+
+    [PunRPC]
+    private void RPC_EnviarEstadoAlNuevoMaster(string nickname, int slot, PhotonMessageInfo info)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        int actorNumber = info.Sender.ActorNumber;
+        estadoSlots[actorNumber] = (slot, nickname);
+
+        ActualizarVisualGlobal();
+    }
+
+    [PunRPC]
+    private void RPC_SetBotonIniciarPartidaEstado(bool habilitado)
+    {
+        if (startGameButton != null)
+        {
+            startGameButton.interactable = habilitado;
+            startGameButton.gameObject.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    private void RPC_IniciarPartidaDesdeCliente(PhotonMessageInfo info)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        Debug.Log($"Jugador {info.Sender.NickName} solicitó iniciar la partida.");
+        
+        PhotonNetwork.LoadLevel("Nivel Jugable");
     }
 }
