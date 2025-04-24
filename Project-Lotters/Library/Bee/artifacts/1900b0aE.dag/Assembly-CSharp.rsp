@@ -413,6 +413,8 @@
 "Assets/Photon/PhotonChat/Demos/DemoChat/IgnoreUiRaycastWhenInactive.cs"
 "Assets/Photon/PhotonChat/Demos/DemoChat/NamePickGui.cs"
 "Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs"
+"Assets/Scripts/Lobby/LobbyChat.cs"
+"Assets/Scripts/Lobby/LobbyManager.cs"
 "Assets/Scripts/Menu Scripts/MenuPrincipalManager.cs"
 "Assets/Scripts/Menu Scripts/Pantalla de Nickname/MenuNameManager.cs"
 "Assets/Scripts/Menu Scripts/Pantalla de Nickname/NicknameMenuTransition.cs"

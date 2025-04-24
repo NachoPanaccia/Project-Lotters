@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class MenuNameManager : MonoBehaviour
+public class MenuNameManager : MonoBehaviourPunCallbacks
 {
 
     [SerializeField] private InputField nicknameInput;
