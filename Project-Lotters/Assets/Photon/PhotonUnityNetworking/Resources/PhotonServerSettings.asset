@@ -49,6 +49,8 @@ MonoBehaviour:
   - RPC_PedirEstado
   - RPC_SetBotonIniciarPartidaEstado
   - RPC_IniciarPartidaDesdeCliente
+  - RPC_ConfirmacionDeSlot
+  - RPC_ConfirmarSlotAntesDeIniciar
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

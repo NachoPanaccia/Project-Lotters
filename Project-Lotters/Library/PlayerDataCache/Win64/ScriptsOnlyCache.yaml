@@ -102,6 +102,7 @@ ScriptsOnlyBuild:
     - UnityEngine.Rendering.Universal.Renderer2DData
     - UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
     - UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset
+    - UnityEngine.Rendering.Universal.UniversalRenderPipelineEditorResources
     - UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -315,19 +316,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9760}
     - Class: 114
-      Script: {instanceID: 10054}
+      Script: {instanceID: 10058}
     - Class: 114
-      Script: {instanceID: 10850}
+      Script: {instanceID: 10854}
     - Class: 114
-      Script: {instanceID: 11802}
+      Script: {instanceID: 11806}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11816}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 12458}
     - Class: 114
-      Script: {instanceID: 13068}
+      Script: {instanceID: 13056}
     - Class: 114
-      Script: {instanceID: 30190}
+      Script: {instanceID: 13074}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -378,9 +379,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 8776}
     - Class: 114
-      Script: {instanceID: 10850}
+      Script: {instanceID: 10854}
     - Class: 114
-      Script: {instanceID: 11802}
+      Script: {instanceID: 11806}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -539,59 +540,59 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9760}
     - Class: 114
-      Script: {instanceID: 9846}
+      Script: {instanceID: 9842}
     - Class: 114
-      Script: {instanceID: 9854}
+      Script: {instanceID: 9848}
     - Class: 114
-      Script: {instanceID: 9878}
+      Script: {instanceID: 9856}
     - Class: 114
-      Script: {instanceID: 10102}
+      Script: {instanceID: 9880}
     - Class: 114
-      Script: {instanceID: 10172}
+      Script: {instanceID: 10106}
     - Class: 114
-      Script: {instanceID: 10740}
+      Script: {instanceID: 10176}
     - Class: 114
-      Script: {instanceID: 10774}
+      Script: {instanceID: 10744}
     - Class: 114
-      Script: {instanceID: 10798}
+      Script: {instanceID: 10778}
     - Class: 114
-      Script: {instanceID: 10800}
+      Script: {instanceID: 10802}
     - Class: 114
-      Script: {instanceID: 10850}
+      Script: {instanceID: 10804}
     - Class: 114
-      Script: {instanceID: 11048}
+      Script: {instanceID: 10854}
     - Class: 114
-      Script: {instanceID: 11186}
+      Script: {instanceID: 11052}
     - Class: 114
-      Script: {instanceID: 11292}
+      Script: {instanceID: 11190}
     - Class: 114
-      Script: {instanceID: 11298}
+      Script: {instanceID: 11296}
     - Class: 114
-      Script: {instanceID: 11594}
+      Script: {instanceID: 11302}
     - Class: 114
-      Script: {instanceID: 11728}
+      Script: {instanceID: 11598}
     - Class: 114
-      Script: {instanceID: 11802}
+      Script: {instanceID: 11732}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11806}
     - Class: 114
-      Script: {instanceID: 11900}
+      Script: {instanceID: 11816}
     - Class: 114
-      Script: {instanceID: 12010}
+      Script: {instanceID: 11904}
     - Class: 114
-      Script: {instanceID: 12100}
+      Script: {instanceID: 12014}
     - Class: 114
-      Script: {instanceID: 12162}
+      Script: {instanceID: 12104}
     - Class: 114
-      Script: {instanceID: 12422}
+      Script: {instanceID: 12166}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 12426}
     - Class: 114
-      Script: {instanceID: 13220}
+      Script: {instanceID: 13056}
     - Class: 114
-      Script: {instanceID: 13444}
+      Script: {instanceID: 13226}
     - Class: 114
-      Script: {instanceID: 57096}
+      Script: {instanceID: 13450}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -656,11 +657,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9134}
     - Class: 114
-      Script: {instanceID: 11802}
+      Script: {instanceID: 9842}
     - Class: 114
-      Script: {instanceID: 52402}
+      Script: {instanceID: 10024}
     - Class: 114
-      Script: {instanceID: 57096}
+      Script: {instanceID: 11806}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -2550,6 +2551,12 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
+      Hash: 2e676c10f5e76b285544acc70342f4b6
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: PlayerController
+  - hash:
+      serializedVersion: 2
       Hash: 5dc51b0140815ee83ba613dce32f5b12
     assemblyName: Unity.RenderPipelines.Core.Runtime
     namespaceName: UnityEngine.Rendering.UI
@@ -2626,6 +2633,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.RenderPipelines.Universal.Runtime
     namespaceName: UnityEngine.Rendering.Universal
     className: ChromaticAberration
+  - hash:
+      serializedVersion: 2
+      Hash: 8372efd9fe9e6426b0ca89303db25913
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: GameInitializer
   - hash:
       serializedVersion: 2
       Hash: 9ebc0a3016506a0cbb7e0306dfcb9497
@@ -3138,6 +3151,12 @@ ScriptsOnlyBuild:
     className: EventTrigger
   - hash:
       serializedVersion: 2
+      Hash: 8f68b5438408af76b8bbc38780c0c9eb
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: LobbyButtonController
+  - hash:
+      serializedVersion: 2
       Hash: 67f6cb8ac7b194c76aa1314e80170cc9
     assemblyName: PhotonUnityNetworking.Demos
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -3304,24 +3323,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 8f68b5438408af76b8bbc38780c0c9eb
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: LobbyButtonController
-  - hash:
-      serializedVersion: 2
-      Hash: 8372efd9fe9e6426b0ca89303db25913
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: GameInitializer
-  - hash:
-      serializedVersion: 2
-      Hash: 2e676c10f5e76b285544acc70342f4b6
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: PlayerController
   platform: 19
   scenePathNames:
   - Assets/Scenes/Inicial/Pantalla de Nickname.unity

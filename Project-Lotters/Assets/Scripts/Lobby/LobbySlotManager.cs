@@ -17,6 +17,7 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
     [SerializeField] private Button startGameButton;
 
     private Dictionary<int, (int slot, string nickname)> estadoSlots = new Dictionary<int, (int, string)>();
+    
 
     private void Start()
     {
@@ -26,6 +27,12 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Soy el primer jugador (MasterClient). Asignándome manualmente...");
+            photonView.RPC("RPC_EnviarNicknameAlMaster", RpcTarget.MasterClient, PhotonNetwork.NickName);
+        }
+
         photonView.RPC("RPC_EnviarNicknameAlMaster", RpcTarget.MasterClient, PhotonNetwork.NickName);
     }
 
@@ -237,6 +244,15 @@ public class LobbySlotManager : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient) return;
 
         Debug.Log($"Jugador {info.Sender.NickName} solicitó iniciar la partida.");
+        
+        ExitGames.Client.Photon.Hashtable propiedades = new ExitGames.Client.Photon.Hashtable();
+
+        foreach (var entry in estadoSlots)
+        {
+            propiedades[$"slot_{entry.Key}"] = entry.Value.slot;
+        }
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(propiedades);
         
         PhotonNetwork.LoadLevel("Nivel Jugable");
     }

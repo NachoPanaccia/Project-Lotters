@@ -1,38 +1,46 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 
 public class GameInitializer : MonoBehaviourPunCallbacks
 {
     [Header("Prefabs por rol")]
     [SerializeField] private GameObject prefabPolicia;
-    [SerializeField] private GameObject[] prefabsLadrones; // índice 0 = Ladrón 1, etc.
+    [SerializeField] private GameObject[] prefabsLadrones;
 
     [Header("Puntos de aparición")]
     [SerializeField] private Transform spawnPolicia;
     [SerializeField] private Transform[] spawnsLadrones;
 
-    private void Start()
+    protected new void OnEnable()
     {
-        int slot = PlayerPrefs.GetInt("MiSlot", -99);
-        Debug.Log($"[GameInitializer] Slot cargado: {slot}");
+        StartCoroutine(EsperarDatosYSpawnear());
+    }
+
+    private IEnumerator EsperarDatosYSpawnear()
+    {
+        int actorID = PhotonNetwork.LocalPlayer.ActorNumber;
+        
+        yield return new WaitUntil(() =>
+            PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey($"slot_{actorID}")
+        );
+
+        int slot = (int)PhotonNetwork.CurrentRoom.CustomProperties[$"slot_{actorID}"];
+        Debug.Log("Mi slot cargado desde RoomProperties es: " + slot);
 
         switch (slot)
         {
             case -1:
-                Debug.Log("Instanciando POLICÍA");
                 PhotonNetwork.Instantiate(prefabPolicia.name, spawnPolicia.position, Quaternion.identity);
                 break;
-
             case 0:
             case 1:
             case 2:
-                Debug.Log($"Instanciando LADRÓN {slot + 1}");
                 PhotonNetwork.Instantiate(prefabsLadrones[slot].name, spawnsLadrones[slot].position, Quaternion.identity);
                 break;
-
             default:
-                Debug.LogWarning("Slot inválido. No se puede instanciar jugador.");
+                Debug.LogWarning("Slot inválido recibido.");
                 break;
         }
     }
