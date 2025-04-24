@@ -36,56 +36,44 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         string mensaje = $"{PhotonNetwork.LocalPlayer.NickName}, te has conectado satisfactoriamente a la sala.";
         Debug.Log(mensaje);
-        string mensajeTotalDeJugadores = "Total jugadores en sala: " + PhotonNetwork.CurrentRoom.PlayerCount;
-        Debug.Log(mensajeTotalDeJugadores);
+        string mensajeTotal = "Total jugadores en sala: " + PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log(mensajeTotal);
 
         LobbyChat chat = FindObjectOfType<LobbyChat>();
         if (chat != null)
         {
             chat.AgregarMensaje(mensaje);
-            chat.AgregarMensaje(mensajeTotalDeJugadores);
+            chat.AgregarMensaje(mensajeTotal);
         }
-
-        LobbySlotManager slotManager = FindObjectOfType<LobbySlotManager>();
-        if (slotManager != null)
-            slotManager.AsignarJugador(PhotonNetwork.LocalPlayer);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        string mensajeJoinSala = $"El jugador {newPlayer.NickName} se ha unido a la sala {PhotonNetwork.CurrentRoom.Name}.";
-        Debug.Log(mensajeJoinSala);
-        string mensajeTotalDeJugadores = "Total jugadores en sala: " + PhotonNetwork.CurrentRoom.PlayerCount;
-        Debug.Log(mensajeTotalDeJugadores);
+        string mensaje = $"El jugador {newPlayer.NickName} se ha unido a la sala {PhotonNetwork.CurrentRoom.Name}.";
+        Debug.Log(mensaje);
+        string mensajeTotal = "Total jugadores en sala: " + PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log(mensajeTotal);
 
         LobbyChat chat = FindObjectOfType<LobbyChat>();
         if (chat != null)
         {
-            chat.AgregarMensaje(mensajeJoinSala);
-            chat.AgregarMensaje(mensajeTotalDeJugadores);
+            chat.AgregarMensaje(mensaje);
+            chat.AgregarMensaje(mensajeTotal);
         }
-
-        LobbySlotManager slotManager = FindObjectOfType<LobbySlotManager>();
-        if (slotManager != null)
-            slotManager.AsignarJugador(newPlayer);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         string mensaje = $"El jugador {otherPlayer.NickName} ha abandonado la sala.";
         Debug.Log(mensaje);
-        string mensajeTotalDeJugadores = "Total jugadores en sala: " + PhotonNetwork.CurrentRoom.PlayerCount;
-        Debug.Log(mensajeTotalDeJugadores);
+        string mensajeTotal = "Total jugadores en sala: " + PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log(mensajeTotal);
 
         LobbyChat chat = FindObjectOfType<LobbyChat>();
         if (chat != null)
         {
             chat.AgregarMensaje(mensaje);
-            chat.AgregarMensaje(mensajeTotalDeJugadores);
+            chat.AgregarMensaje(mensajeTotal);
         }
-
-        LobbySlotManager slotManager = FindObjectOfType<LobbySlotManager>();
-        if (slotManager != null)
-            slotManager.RemoverJugador(otherPlayer);
     }
 }
