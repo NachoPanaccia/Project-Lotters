@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Inicial/Pantalla de Nickname.unity
+- path: Assets/Scenes/Nivel Jugable.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
